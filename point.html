@@ -138,9 +138,8 @@ button:disabled {
         width: 160px;
         font-size: 16px;
     }
-}
 
-        .navbar {
+    .navbar {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
@@ -182,6 +181,8 @@ button:disabled {
             margin: 0 10px;
             font-size: 24px;
         }
+}
+
     </style>
 </head>
 <body>
@@ -193,7 +194,7 @@ button:disabled {
         <h1>Doger Potrtal Airdrop Check-in</h1>
         <p>Wallet Address: <span id="walletAddress">-</span></p>
         <p>ETH Balance: <span id="ethBalance">0</span> ETH</p>
-        <p>Dpoint: <span id="cipBalance">0</span> Dpoint</p>
+        <p>dPoint: <span id="dPointBalance">0</span> dPoint</p>
         <button id="connectButton">Connect Wallet</button>
         <button id="checkinButton" disabled>Claim Checkin</button>
         <button id="disconnectButton" disabled>Disconnect Wallet</button>
@@ -219,13 +220,15 @@ button:disabled {
 };
 
 const contractAddress = "0x8e5d9DE1db1abdaCDEF786f4bC401A3B5A49a92A";
-const cipTokenAddress = "0x8e5d9DE1db1abdaCDEF786f4bC401A3B5A49a92A"; 
+const dPointTokenAddress = "0x8e5d9DE1db1abdaCDEF786f4bC401A3B5A49a92A"; 
 const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"pure","type":"function"}];   
 const cipABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"pure","type":"function"}];        
-
+const contractABI = 
+const dPointABI =
+    
 let web3;
 let contract;
-let cipContract;
+let dPointContract;
 let userAccount;
 
 async function connectMetaMask() {
@@ -239,7 +242,7 @@ async function connectMetaMask() {
             await switchToOpBNBTestnet();
 
             contract = new web3.eth.Contract(contractABI, contractAddress);
-            cipContract = new web3.eth.Contract(cipABI, cipTokenAddress);
+            cipContract = new web3.eth.Contract(dPointABI, dPointTokenAddress);
 
             document.getElementById("walletAddress").innerText = userAccount;
             document.getElementById("connectButton").innerText = "Terhubung";
@@ -284,8 +287,8 @@ async function updateBalances() {
             document.getElementById("ethBalance").innerText = web3.utils.fromWei(ethBalance, "ether");
 
             const cipBalanceRaw = await cipContract.methods.balanceOf(userAccount).call();
-            const cipBalance = web3.utils.fromWei(cipBalanceRaw, "ether");
-            document.getElementById("cipBalance").innerText = cipBalance;
+            const cipBalance = web3.utils.fromWei(dPointBalanceRaw, "ether");
+            document.getElementById("dPointBalance").innerText = dPointBalance;
         } catch (error) {
             console.error("Failed to get balance:", error);
         }
@@ -317,11 +320,11 @@ async function checkIn() {
             }
 
             const tx = await contract.methods.checkIn().send({ from: userAccount });
-            document.getElementById("status").innerText = "Check-in was successful!";
+            document.getElementById("status").innerText = "Check-in claim was successful!";
             updateBalances();
         } catch (error) {
-            console.error("Gagal melakukan check-in:", error);
-            document.getElementById("status").innerText = "Failed to check-in.";
+            console.error("Failed to check-in:", error);
+            document.getElementById("status").innerText = "Failed to claim check-in.";
         }
     }
 }
