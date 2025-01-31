@@ -24,7 +24,7 @@ body {
     position: relative;
 }
 
-/* Animasi Bintang */
+/* Stars Animations */
 @keyframes stars {
     0% {
         transform: translateY(0);
@@ -190,13 +190,13 @@ button:disabled {
     </nav>
 
     <div class="container">
-        <h1>Check-in Blockchain</h1>
-        <p>Alamat Wallet: <span id="walletAddress">-</span></p>
-        <p>Saldo ETH: <span id="ethBalance">0</span> ETH</p>
-        <p>Saldo CIP: <span id="cipBalance">0</span> CIP</p>
-        <button id="connectButton">Hubungkan MetaMask</button>
-        <button id="checkinButton" disabled>Check-in Sekarang</button>
-        <button id="disconnectButton" disabled>Diskonek Wallet</button>
+        <h1>Doger Potrtal Airdrop Check-in</h1>
+        <p>Wallet Address: <span id="walletAddress">-</span></p>
+        <p>ETH Balance: <span id="ethBalance">0</span> ETH</p>
+        <p>Dpoint: <span id="cipBalance">0</span> Dpoint</p>
+        <button id="connectButton">Connect Wallet</button>
+        <button id="checkinButton" disabled>Claim Checkin</button>
+        <button id="disconnectButton" disabled>Disconnect Wallet</button>
         <p id="status"></p>
     </div>
 
@@ -236,7 +236,6 @@ async function connectMetaMask() {
             const accounts = await web3.eth.getAccounts();
             userAccount = accounts[0];
 
-            // Paksa Pengguna ke opBNB Testnet
             await switchToOpBNBTestnet();
 
             contract = new web3.eth.Contract(contractABI, contractAddress);
@@ -252,7 +251,7 @@ async function connectMetaMask() {
             console.error("MetaMask Connection Error:", error);
         }
     } else {
-        alert("MetaMask tidak terdeteksi. Silakan install MetaMask!");
+        alert("MetaMask not detected. Please install MetaMask!");
     }
 }
 
@@ -270,10 +269,10 @@ async function switchToOpBNBTestnet() {
                     params: [opBNBTestnet]
                 });
             } catch (addError) {
-                console.error("Gagal menambahkan jaringan:", addError);
+                console.error("Failed to add network:", addError);
             }
         } else {
-            console.error("Gagal mengganti jaringan:", error);
+            console.error("Failed to change network:", error);
         }
     }
 }
@@ -288,7 +287,7 @@ async function updateBalances() {
             const cipBalance = web3.utils.fromWei(cipBalanceRaw, "ether");
             document.getElementById("cipBalance").innerText = cipBalance;
         } catch (error) {
-            console.error("Gagal mendapatkan saldo:", error);
+            console.error("Failed to get balance:", error);
         }
     }
 }
@@ -296,12 +295,12 @@ async function updateBalances() {
 async function signMessage() {
     if (userAccount) {
         try {
-            const message = "Konfirmasi check-in di blockchain";
+            const message = "Confirm check-in on the blockchain";
             const signature = await web3.eth.personal.sign(message, userAccount);
             console.log("Signature:", signature);
             return signature;
         } catch (error) {
-            console.error("Gagal melakukan tanda tangan:", error);
+            console.error("Failed to sign:", error);
         }
     }
 }
@@ -309,20 +308,20 @@ async function signMessage() {
 async function checkIn() {
     if (contract && userAccount) {
         try {
-            document.getElementById("status").innerText = "Check-in sedang diproses...";
+            document.getElementById("status").innerText = "Check-in is being processed...";
             
             const signature = await signMessage();
             if (!signature) {
-                document.getElementById("status").innerText = "Check-in dibatalkan.";
+                document.getElementById("status").innerText = "Check-in cancelled.";
                 return;
             }
 
             const tx = await contract.methods.checkIn().send({ from: userAccount });
-            document.getElementById("status").innerText = "Check-in berhasil!";
+            document.getElementById("status").innerText = "Check-in was successful!";
             updateBalances();
         } catch (error) {
             console.error("Gagal melakukan check-in:", error);
-            document.getElementById("status").innerText = "Gagal melakukan check-in.";
+            document.getElementById("status").innerText = "Failed to check-in.";
         }
     }
 }
@@ -332,10 +331,10 @@ function disconnectWallet() {
     document.getElementById("walletAddress").innerText = "-";
     document.getElementById("ethBalance").innerText = "0";
     document.getElementById("cipBalance").innerText = "0";
-    document.getElementById("connectButton").innerText = "Hubungkan MetaMask";
+    document.getElementById("connectButton").innerText = "Connect MetaMask";
     document.getElementById("checkinButton").disabled = true;
     document.getElementById("disconnectButton").disabled = true;
-    document.getElementById("status").innerText = "Wallet terputus.";
+    document.getElementById("status").innerText = "Wallet disconnected.";
 }
 
 document.getElementById("connectButton").addEventListener("click", connectMetaMask);
