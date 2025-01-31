@@ -192,8 +192,8 @@ button:disabled {
     <div class="container">
         <h1>Doger Potrtal Airdrop Check-in</h1>
         <p>Wallet Address: <span id="walletAddress">-</span></p>
-        <p>ETH Balance: <span id="ethBalance">0</span> ETH</p>
-        <p>Dpoint: <span id="cipBalance">0</span> Dpoint</p>
+        <p>ETH Balance: <span id="ethBalance">0</span></p>
+        <p>dPoint: <span id="cipBalance">0</span>Point</p>
         <button id="connectButton">Connect Wallet</button>
         <button id="checkinButton" disabled>Claim Checkin</button>
         <button id="disconnectButton" disabled>Disconnect Wallet</button>
@@ -210,12 +210,12 @@ button:disabled {
     <script src="script.js"></script>
 
     <script>
-      const opBNBTestnet = {
-    chainId: "0x15eb",
-    chainName: "opBNB Testnet",
-    nativeCurrency: { name: "tBNB", symbol: "tBNB", decimals: 18 },
-    rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org"],
-    blockExplorerUrls: ["https://opbnb-testnet.bscscan.com"]
+      const ArbitrumSepolia = {
+    chainId: "0x66eee",
+    chainName: "Arbitrum Sepolia",
+    nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+    rpcUrls: ["https://sepolia-rollup.arbitrum.io/rpc"],
+    blockExplorerUrls: ["https://sepolia.arbiscan.io"]
 };
 
 const contractAddress = "0xA20CC92cF996F6420D9d7a162278c12F4b811C3B";
@@ -255,18 +255,18 @@ async function connectMetaMask() {
     }
 }
 
-async function switchToOpBNBTestnet() {
+async function switchToArbitrumSepolia() {
     try {
         await window.ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: opBNBTestnet.chainId }]
+            params: [{ chainId: ArbitrumSepolia.chainId }]
         });
     } catch (error) {
         if (error.code === 4902) {
             try {
                 await window.ethereum.request({
                     method: "wallet_addEthereumChain",
-                    params: [opBNBTestnet]
+                    params: [ArbitrumSepolia]
                 });
             } catch (addError) {
                 console.error("Failed to add network:", addError);
@@ -320,7 +320,7 @@ async function checkIn() {
             document.getElementById("status").innerText = "Check-in was successful!";
             updateBalances();
         } catch (error) {
-            console.error("Gagal melakukan check-in:", error);
+            console.error("Failed to check-in:", error);
             document.getElementById("status").innerText = "Failed to check-in.";
         }
     }
