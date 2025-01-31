@@ -205,9 +205,9 @@ button:disabled {
     <p id="walletInfo" class="hidden">Wallet Address: <span id="walletAddress">-</span></p>
     <p id="ethBalanceInfo" class="hidden">ETH Balance: <span id="ethBalance">0</span> ETH</p>
     <p id="dPointBalanceInfo" class="hidden">dPoint: <span id="dPointBalance">0</span> dPoint</p>
-    
-    <button id="connectButton">Connect Wallet</button>
+
     <button id="checkinButton" class="hidden" disabled>Claim Check-in</button>
+    <button id="connectButton">Connect Wallet</button>
     
     <p id="status"></p>
 </div>
@@ -380,10 +380,8 @@ document.getElementById("connectButton").addEventListener("click", async functio
     }
 });
 
-document.getElementById("connectButton").addEventListener("click", connectMetaMask);
 document.getElementById("checkinButton").addEventListener("click", checkIn);
 document.getElementById("disconnectButton").addEventListener("click", disconnectWallet);
-
-    </script>
+  </script>
 </body>
 </html>
