@@ -8,18 +8,137 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: "Baloo 2", sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1f1c2c, #928DAB);
-            color: white;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        /* Global Styles */
+body {
+    font-family: "Baloo 2", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1f1c2c, #928DAB);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    position: relative;
+}
+
+/* Animasi Bintang */
+@keyframes stars {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-2000px);
+    }
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    opacity: 0.6;
+    border-radius: 50%;
+    animation: stars 50s linear infinite;
+    z-index: -1;
+}
+
+.star:nth-child(even) {
+    animation-duration: 60s;
+    animation-delay: -20s;
+}
+
+.star:nth-child(odd) {
+    animation-duration: 80s;
+    animation-delay: -10s;
+}
+
+/* Container */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+    transition: all 0.3s ease;
+}
+
+/* Buttons */
+button {
+    padding: 12px 24px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    margin: 10px;
+    width: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3D Effect on Click */
+button:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+#connectButton {
+    background: linear-gradient(45deg, #0072ff, #00c6ff);
+    color: white;
+}
+
+#checkinButton {
+    background: linear-gradient(45deg, #f4d03f, #16a085);
+    color: white;
+}
+
+#disconnectButton {
+    background: linear-gradient(45deg, #ff512f, #dd2476);
+    color: white;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+/* Status Text */
+#status {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+/* Responsive Layout */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    button {
+        width: 160px;
+        font-size: 16px;
+    }
+}
 
         .navbar {
             width: 100%;
