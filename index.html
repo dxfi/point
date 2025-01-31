@@ -22,6 +22,22 @@ body {
     align-items: center;
     background-size: cover;
     position: relative;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+        font-size: 14px;
+    }
 }
 
 /* Stars Animations */
