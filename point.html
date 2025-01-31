@@ -90,6 +90,10 @@ body {
     }
 }
 
+.hidden {
+    display: none;
+}
+
 /* Buttons */
 button {
     padding: 12px 24px;
@@ -196,15 +200,17 @@ button:disabled {
     </nav>
 
     <div class="container">
-        <h1>Doger Potrtal Airdrop Check-in</h1>
-        <p>Wallet Address: <span id="walletAddress">-</span></p>
-        <p>ETH Balance: <span id="ethBalance">0</span> ETH</p>
-        <p>dPoint: <span id="dPointBalance">0</span> dPoint</p>
-        <button id="connectButton">Connect Wallet</button>
-        <button id="checkinButton" disabled>Claim Checkin</button>
-        <button id="disconnectButton" disabled>Disconnect Wallet</button>
-        <p id="status"></p>
-    </div>
+    <h1>Doger Portal Airdrop Check-in</h1>
+    
+    <p id="walletInfo" class="hidden">Wallet Address: <span id="walletAddress">-</span></p>
+    <p id="ethBalanceInfo" class="hidden">ETH Balance: <span id="ethBalance">0</span> ETH</p>
+    <p id="dPointBalanceInfo" class="hidden">dPoint: <span id="dPointBalance">0</span> dPoint</p>
+    
+    <button id="connectButton">Connect Wallet</button>
+    <button id="checkinButton" class="hidden" disabled>Claim Check-in</button>
+    
+    <p id="status"></p>
+</div>
 
     <footer class="footer">
         <a href="https://x.com/dogerportal" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -348,6 +354,31 @@ function disconnectWallet() {
     document.getElementById("disconnectButton").disabled = true;
     document.getElementById("status").innerText = "Wallet disconnected.";
 }
+
+document.getElementById("connectButton").addEventListener("click", async function () {
+    if (window.ethereum) {
+        try {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            web3 = new Web3(window.ethereum);
+            const accounts = await web3.eth.getAccounts();
+            userAccount = accounts[0];
+
+            document.getElementById("walletAddress").innerText = userAccount;
+            document.getElementById("connectButton").innerText = "Disconnect Wallet";
+            
+            document.getElementById("walletInfo").classList.remove("hidden");
+            document.getElementById("ethBalanceInfo").classList.remove("hidden");
+            document.getElementById("dPointBalanceInfo").classList.remove("hidden");
+            document.getElementById("checkinButton").classList.remove("hidden");
+
+            updateBalances();
+        } catch (error) {
+            console.error("MetaMask Connection Error:", error);
+        }
+    } else {
+        alert("MetaMask not detected. Please install MetaMask!");
+    }
+});
 
 document.getElementById("connectButton").addEventListener("click", connectMetaMask);
 document.getElementById("checkinButton").addEventListener("click", checkIn);
