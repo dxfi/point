@@ -296,7 +296,7 @@ async function updateBalances() {
 async function signMessage() {
     if (userAccount) {
         try {
-            const message = `${userWallet} Welcome to Doger Portal! Sign this message to verify your identity.`;
+            const message = "${userWallet} Welcome to Doger Portal! Sign this message to verify your identity.";
             const signature = await web3.eth.personal.sign(message, userAccount);
             console.log("Signature:", signature);
             return signature;
