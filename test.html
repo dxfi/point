@@ -116,6 +116,10 @@ body {
     background-color: #e04f49;
 }
 
+.hide {
+    display: none;
+}
+        
 /* Container */
 .container {
     padding: 20px;
@@ -408,10 +412,22 @@ function disconnectWallet() {
     document.getElementById("status").innerText = "Wallet disconnected.";
 }
 
-document.getElementById("connectButton").addEventListener("click", connectMetaMask);
-document.getElementById("checkinButton").addEventListener("click", checkIn);
-document.getElementById("disconnectButton").addEventListener("click", disconnectWallet);
+    document.getElementById("connectButton").addEventListener("click", connectMetaMask);
+    document.getElementById("checkinButton").addEventListener("click", checkIn);
+    document.getElementById("disconnectButton").addEventListener("click", disconnectWallet);
 
+    window.onload = function() {
+    document.getElementById("walletAddress").parentElement.classList.add("hide");
+    document.getElementById("ethBalance").parentElement.classList.add("hide");
+    document.getElementById("cipBalance").parentElement.classList.add("hide");
+    document.getElementById("checkinButton").classList.add("hide");
+    document.getElementById("disconnectButton").classList.add("hide");
+};
+    document.getElementById("walletAddress").parentElement.classList.remove("hide");
+    document.getElementById("ethBalance").parentElement.classList.remove("hide");
+    document.getElementById("cipBalance").parentElement.classList.remove("hide");
+    document.getElementById("checkinButton").classList.remove("hide");
+    document.getElementById("disconnectButton").classList.remove("hide");
     </script>
 </body>
 </html>
