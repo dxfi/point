@@ -4,92 +4,228 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check-in Blockchain</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-      body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 50px;
-    background-color: #f4f4f4;
+        /* Global Styles */
+body {
+    font-family: "Baloo 2", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1f1c2c, #928DAB);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    position: relative;
 }
 
+/* Stars Animations */
+@keyframes stars {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-2000px);
+    }
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    opacity: 0.6;
+    border-radius: 50%;
+    animation: stars 50s linear infinite;
+    z-index: -1;
+}
+
+.star:nth-child(even) {
+    animation-duration: 60s;
+    animation-delay: -20s;
+}
+
+.star:nth-child(odd) {
+    animation-duration: 80s;
+    animation-delay: -10s;
+}
+
+/* Container */
 .container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+    transition: all 0.3s ease;
 }
 
+/* Buttons */
 button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 24px;
+    font-size: 18px;
     cursor: pointer;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
+    margin: 10px;
+    width: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3D Effect on Click */
+button:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 #connectButton {
-    background-color: #007bff;
+    background: linear-gradient(45deg, #0072ff, #00c6ff);
     color: white;
 }
 
 #checkinButton {
-    background-color: #28a745;
+    background: linear-gradient(45deg, #f4d03f, #16a085);
     color: white;
 }
 
 #disconnectButton {
-    background-color: #dc3545;
+    background: linear-gradient(45deg, #ff512f, #dd2476);
     color: white;
 }
 
-#checkinButton:disabled, #disconnectButton:disabled {
+button:disabled {
     background-color: gray;
     cursor: not-allowed;
+    transform: scale(1);
 }
 
+/* Status Text */
 #status {
-    margin-top: 10px;
+    margin-top: 20px;
+    font-size: 18px;
     font-weight: bold;
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
+/* Responsive Layout */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    button {
+        width: 160px;
+        font-size: 16px;
+    }
+}
+
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar img {
+            height: 50px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Check-in Blockchain</h1>
-        <p>Alamat Wallet: <span id="walletAddress">-</span></p>
-        <p>Saldo ETH: <span id="ethBalance">0</span> ETH</p>
-        <p>Saldo CIP: <span id="cipBalance">0</span> CIP</p>
-        
-        <button id="connectButton">Hubungkan MetaMask</button>
-        <button id="checkinButton" disabled>Check-in Sekarang</button>
-        <button id="disconnectButton" disabled>Diskonek Wallet</button>
+    <nav class="navbar">
+        <img src="logo.png" alt="Logo">
+    </nav>
 
+    <div class="container">
+        <h1>Doger Potrtal Airdrop Check-in</h1>
+        <p>Wallet Address: <span id="walletAddress">-</span></p>
+        <p>ETH Balance: <span id="ethBalance">0</span> ETH</p>
+        <p>Dpoint: <span id="cipBalance">0</span> Dpoint</p>
+        <button id="connectButton">Connect Wallet</button>
+        <button id="checkinButton" disabled>Claim Checkin</button>
+        <button id="disconnectButton" disabled>Disconnect Wallet</button>
         <p id="status"></p>
     </div>
 
+    <footer class="footer">
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
     <script src="script.js"></script>
+
     <script>
       const opBNBTestnet = {
     chainId: "0x15eb",
-    chainName: "opBNB Testnet",
-    nativeCurrency: { name: "tBNB", symbol: "tBNB", decimals: 18 },
-    rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org"],
-    blockExplorerUrls: ["https://opbnb-testnet.bscscan.com"]
+    chainName: "Arbitrum Sepolia",
+    nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+    rpcUrls: ["https://sepolia-rollup.arbitrum.io/rpc"],
+    blockExplorerUrls: ["https://sepolia.arbiscan.io"]
 };
 
-const contractAddress = "0xe4f0d070f29d981F07641729D00222564f7D1433";
-const cipTokenAddress = "0xe4f0d070f29d981F07641729D00222564f7D1433"; 
-const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
-const cipABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
-
+const contractAddress = "0xA20CC92cF996F6420D9d7a162278c12F4b811C3B";
+const dPointTokenAddress = "0xA20CC92cF996F6420D9d7a162278c12F4b811C3B"; 
+const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"pure","type":"function"}];
+const dPointABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"pure","type":"function"}];
+    
 let web3;
 let contract;
-let cipContract;
+let dPointContract;
 let userAccount;
 
 async function connectMetaMask() {
@@ -100,11 +236,10 @@ async function connectMetaMask() {
             const accounts = await web3.eth.getAccounts();
             userAccount = accounts[0];
 
-            // Paksa Pengguna ke opBNB Testnet
             await switchToOpBNBTestnet();
 
             contract = new web3.eth.Contract(contractABI, contractAddress);
-            cipContract = new web3.eth.Contract(cipABI, cipTokenAddress);
+            cipContract = new web3.eth.Contract(dPointABI, dPointTokenAddress);
 
             document.getElementById("walletAddress").innerText = userAccount;
             document.getElementById("connectButton").innerText = "Terhubung";
@@ -116,28 +251,28 @@ async function connectMetaMask() {
             console.error("MetaMask Connection Error:", error);
         }
     } else {
-        alert("MetaMask tidak terdeteksi. Silakan install MetaMask!");
+        alert("MetaMask not detected. Please install MetaMask!");
     }
 }
 
-async function switchToOpBNBTestnet() {
+async function switchToArbitrumSepolia() {
     try {
         await window.ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: opBNBTestnet.chainId }]
+            params: [{ chainId: ArbitrumSepolia.chainId }]
         });
     } catch (error) {
         if (error.code === 4902) {
             try {
                 await window.ethereum.request({
                     method: "wallet_addEthereumChain",
-                    params: [opBNBTestnet]
+                    params: [ArbitrumSepolia]
                 });
             } catch (addError) {
-                console.error("Gagal menambahkan jaringan:", addError);
+                console.error("Failed to add network:", addError);
             }
         } else {
-            console.error("Gagal mengganti jaringan:", error);
+            console.error("Failed to change network:", error);
         }
     }
 }
@@ -148,11 +283,11 @@ async function updateBalances() {
             const ethBalance = await web3.eth.getBalance(userAccount);
             document.getElementById("ethBalance").innerText = web3.utils.fromWei(ethBalance, "ether");
 
-            const cipBalanceRaw = await cipContract.methods.balanceOf(userAccount).call();
-            const cipBalance = web3.utils.fromWei(cipBalanceRaw, "ether");
-            document.getElementById("cipBalance").innerText = cipBalance;
+            const dPointBalanceRaw = await dPointContract.methods.balanceOf(userAccount).call();
+            const dPointBalance = web3.utils.fromWei(dPointBalanceRaw, "ether");
+            document.getElementById("dPointBalance").innerText = dPointBalance;
         } catch (error) {
-            console.error("Gagal mendapatkan saldo:", error);
+            console.error("Failed to get balance:", error);
         }
     }
 }
@@ -160,12 +295,12 @@ async function updateBalances() {
 async function signMessage() {
     if (userAccount) {
         try {
-            const message = "Konfirmasi check-in di blockchain";
+            const message = "Confirm check-in on the blockchain";
             const signature = await web3.eth.personal.sign(message, userAccount);
             console.log("Signature:", signature);
             return signature;
         } catch (error) {
-            console.error("Gagal melakukan tanda tangan:", error);
+            console.error("Failed to sign:", error);
         }
     }
 }
@@ -173,20 +308,20 @@ async function signMessage() {
 async function checkIn() {
     if (contract && userAccount) {
         try {
-            document.getElementById("status").innerText = "Check-in sedang diproses...";
+            document.getElementById("status").innerText = "Check-in is being processed...";
             
             const signature = await signMessage();
             if (!signature) {
-                document.getElementById("status").innerText = "Check-in dibatalkan.";
+                document.getElementById("status").innerText = "Check-in cancelled.";
                 return;
             }
 
             const tx = await contract.methods.checkIn().send({ from: userAccount });
-            document.getElementById("status").innerText = "Check-in berhasil!";
+            document.getElementById("status").innerText = "Check-in claim was successful!";
             updateBalances();
         } catch (error) {
-            console.error("Gagal melakukan check-in:", error);
-            document.getElementById("status").innerText = "Gagal melakukan check-in.";
+            console.error("Failed to check-in:", error);
+            document.getElementById("status").innerText = "Failed to claim check-in.";
         }
     }
 }
@@ -195,11 +330,11 @@ function disconnectWallet() {
     userAccount = null;
     document.getElementById("walletAddress").innerText = "-";
     document.getElementById("ethBalance").innerText = "0";
-    document.getElementById("cipBalance").innerText = "0";
-    document.getElementById("connectButton").innerText = "Hubungkan MetaMask";
+    document.getElementById("dPointBalance").innerText = "0";
+    document.getElementById("connectButton").innerText = "Connect MetaMask";
     document.getElementById("checkinButton").disabled = true;
     document.getElementById("disconnectButton").disabled = true;
-    document.getElementById("status").innerText = "Wallet terputus.";
+    document.getElementById("status").innerText = "Wallet disconnected.";
 }
 
 document.getElementById("connectButton").addEventListener("click", connectMetaMask);
