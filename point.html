@@ -210,7 +210,7 @@ button:disabled {
 
     <script>
       const ArbitrumSepolia = {
-    chainId: "0x15eb",
+    chainId: "0x66eee",
     chainName: "Arbitrum Sepolia",
     nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
     rpcUrls: ["https://sepolia-rollup.arbitrum.io/rpc"],
@@ -238,10 +238,10 @@ async function connectMetaMask() {
             await switchToOpBNBTestnet();
 
             contract = new web3.eth.Contract(contractABI, contractAddress);
-            cipContract = new web3.eth.Contract(dPointABI, dPointTokenAddress);
+            dPointContract = new web3.eth.Contract(dPointABI, dPointTokenAddress);
 
             document.getElementById("walletAddress").innerText = userAccount;
-            document.getElementById("connectButton").innerText = "Terhubung";
+            document.getElementById("connectButton").innerText = "Connected";
             document.getElementById("checkinButton").disabled = false;
             document.getElementById("disconnectButton").disabled = false;
 
