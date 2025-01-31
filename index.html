@@ -8,217 +8,193 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-       /* Global Styles */
-body {
-    font-family: "Baloo 2", sans-serif;
+        /* General Reset */
+* {
     margin: 0;
     padding: 0;
-    background: #111; /* Latar belakang gelap */
-    color: white;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-    background-size: cover;
     box-sizing: border-box;
 }
 
-/* Stars Animations */
-@keyframes stars {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-2000px); }
+/* Body */
+body {
+    font-family: 'Baloo 2', sans-serif;
+    color: #fff;
+    background-color: #121212;
+    line-height: 1.6;
 }
 
-.star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background-color: #fff;
-    opacity: 0.6;
-    border-radius: 50%;
-    animation: stars 50s linear infinite;
-    z-index: -1;
-}
-
-.star:nth-child(even) {
-    animation-duration: 60s;
-    animation-delay: -20s;
-}
-
-.star:nth-child(odd) {
-    animation-duration: 80s;
-    animation-delay: -10s;
-}
-
-/* Glassmorphism Effect - Container */
-.container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.7); /* Menambah shadow */
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #5e3dff, #4b6eeb);
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 90%;
-    max-width: 600px;
-    transition: all 0.3s ease;
-}
-
-/* Header */
-h1.orange-text {
-    color: #FFA500; /* Warna oren cerah */
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Menambahkan efek bayangan */
-}
-
-/* Buttons */
-button {
-    padding: 14px 28px;
-    font-size: 18px;
-    cursor: pointer;
-    border: none;
-    border-radius: 40px;
-    margin: 12px;
-    width: 240px;
     position: relative;
-    overflow: hidden;
-    background: linear-gradient(45deg, #6A82FB, #FC5C7D);
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
 }
 
-/* 3D Button Effects */
-button:active {
-    transform: translateY(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+.hero-content {
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+.cta-button {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border: none;
+    background-color: #ff5e57;
+    color: white;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    animation: fadeInUp 2s ease-out;
+}
+
+.cta-button:hover {
+    background-color: #e04f49;
+}
+
+/* Container */
+.container {
+    padding: 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: -50px auto 40px;
+}
+
+.container p {
+    margin: 10px 0;
+}
+
+button {
+    background-color: #4b6eeb;
+    padding: 12px 30px;
+    border-radius: 25px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 10px;
+}
+
+button:disabled {
+    background-color: #6c7c8e;
 }
 
 button:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-button#connectButton {
-    background: linear-gradient(45deg, #0072ff, #00c6ff);
-}
-
-button#checkinButton {
-    background: linear-gradient(45deg, #f4d03f, #16a085);
-}
-
-button#disconnectButton {
-    background: linear-gradient(45deg, #ff512f, #dd2476);
-}
-
-/* Disabled Buttons */
-button:disabled {
-    background-color: gray;
-    cursor: not-allowed;
-    transform: scale(1);
-}
-
-/* Status Text */
-#status {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-/* Navbar */
-.navbar {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 15px 20px;
+footer {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: absolute;
-    top: 0;
-    left: 0;
+    justify-content: center;
+    padding: 20px;
+    background-color: #2f2f2f;
 }
 
-.navbar img {
-    height: 50px;
+footer a {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
 }
 
-/* Footer */
-.footer {
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+footer a:hover {
+    transform: scale(1.2);
 }
 
-.footer a {
-    color: white;
-    margin: 0 12px;
-    font-size: 26px;
-    text-decoration: none;
-    transition: color 0.3s ease;
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.footer a:hover {
-    color: #FFD700; /* Warna emas saat hover */
-}
-
-/* Responsive Layout */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        padding: 25px;
+    .hero h1 {
+        font-size: 2rem;
     }
 
-    button {
-        width: 200px;
-        font-size: 16px;
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    footer a {
+        font-size: 1.2rem;
     }
 }
 
-@media (max-width: 600px) {
-    .container {
-        padding: 20px;
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem;
     }
 
-    button {
-        width: 180px;
-        font-size: 14px;
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 8px 20px;
+    }
+
+    footer a {
+        font-size: 1rem;
     }
 }
-</style>
+
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <img src="logo.png" alt="Logo">
-    </nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Doger Portal Airdrop Check-in</h1>
+            <p>Welcome to the future of blockchain airdrops! Connect your wallet and claim your rewards.</p>
+            <button class="cta-button" id="connectButton">Connect Wallet</button>
+        </div>
+    </section>
 
+    <!-- Main Content -->
     <div class="container">
-        <h1>Doger Potrtal Airdrop Check-in</h1>
         <p>Wallet Address: <span id="walletAddress">-</span></p>
         <p>ETH Balance: <span id="ethBalance">0</span> ETH</p>
         <p>dPoint: <span id="cipBalance">0</span> dPoint</p>
-        <button id="connectButton">Connect Wallet</button>
         <button id="checkinButton" disabled>Claim Checkin</button>
         <button id="disconnectButton" disabled>Disconnect Wallet</button>
         <p id="status"></p>
     </div>
 
+    <!-- Footer -->
     <footer class="footer">
         <a href="https://x.com/dogerportal" target="_blank"><i class="fab fa-twitter"></i></a>
         <a href="https://t.me/dogerportal" target="_blank"><i class="fab fa-telegram"></i></a>
@@ -227,139 +203,5 @@ button:disabled {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
     <script src="script.js"></script>
-
-    <script>
-      const ArbitrumSepolia = {
-    chainId: "0x15eb",
-    chainName: "Arbitrum Sepolia",
-    nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
-    rpcUrls: ["https://sepolia-rollup.arbitrum.io/rpc"],
-    blockExplorerUrls: ["https://sepolia.arbiscan.io"]
-};
-
-const contractAddress = "0xA20CC92cF996F6420D9d7a162278c12F4b811C3B";
-const dPointTokenAddress = "0xA20CC92cF996F6420D9d7a162278c12F4b811C3B"; 
-const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"pure","type":"function"}];
-const dPointABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"pure","type":"function"}];
-    
-let web3;
-let contract;
-let dPointContract;
-let userAccount;
-
-async function connectMetaMask() {
-    if (window.ethereum) {
-        try {
-            await window.ethereum.request({ method: "eth_requestAccounts" });
-            web3 = new Web3(window.ethereum);
-            const accounts = await web3.eth.getAccounts();
-            userAccount = accounts[0];
-
-            await switchToOpBNBTestnet();
-
-            contract = new web3.eth.Contract(contractABI, contractAddress);
-            cipContract = new web3.eth.Contract(dPointABI, dPointTokenAddress);
-
-            document.getElementById("walletAddress").innerText = userAccount;
-            document.getElementById("connectButton").innerText = "Terhubung";
-            document.getElementById("checkinButton").disabled = false;
-            document.getElementById("disconnectButton").disabled = false;
-
-            updateBalances();
-        } catch (error) {
-            console.error("MetaMask Connection Error:", error);
-        }
-    } else {
-        alert("MetaMask not detected. Please install MetaMask!");
-    }
-}
-
-async function switchToArbitrumSepolia() {
-    try {
-        await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: ArbitrumSepolia.chainId }]
-        });
-    } catch (error) {
-        if (error.code === 4902) {
-            try {
-                await window.ethereum.request({
-                    method: "wallet_addEthereumChain",
-                    params: [ArbitrumSepolia]
-                });
-            } catch (addError) {
-                console.error("Failed to add network:", addError);
-            }
-        } else {
-            console.error("Failed to change network:", error);
-        }
-    }
-}
-
-async function updateBalances() {
-    if (userAccount) {
-        try {
-            const ethBalance = await web3.eth.getBalance(userAccount);
-            document.getElementById("ethBalance").innerText = web3.utils.fromWei(ethBalance, "ether");
-
-            const dPointBalanceRaw = await dPointContract.methods.balanceOf(userAccount).call();
-            const dPointBalance = web3.utils.fromWei(dPointBalanceRaw, "ether");
-            document.getElementById("dPointBalance").innerText = dPointBalance;
-        } catch (error) {
-            console.error("Failed to get balance:", error);
-        }
-    }
-}
-
-async function signMessage() {
-    if (userAccount) {
-        try {
-            const message = "Confirm check-in on the blockchain";
-            const signature = await web3.eth.personal.sign(message, userAccount);
-            console.log("Signature:", signature);
-            return signature;
-        } catch (error) {
-            console.error("Failed to sign:", error);
-        }
-    }
-}
-
-async function checkIn() {
-    if (contract && userAccount) {
-        try {
-            document.getElementById("status").innerText = "Check-in is being processed...";
-            
-            const signature = await signMessage();
-            if (!signature) {
-                document.getElementById("status").innerText = "Check-in cancelled.";
-                return;
-            }
-
-            const tx = await contract.methods.checkIn().send({ from: userAccount });
-            document.getElementById("status").innerText = "Check-in claim was successful!";
-            updateBalances();
-        } catch (error) {
-            console.error("Failed to check-in:", error);
-            document.getElementById("status").innerText = "Failed to claim check-in.";
-        }
-    }
-}
-
-function disconnectWallet() {
-    userAccount = null;
-    document.getElementById("walletAddress").innerText = "-";
-    document.getElementById("ethBalance").innerText = "0";
-    document.getElementById("dPointBalance").innerText = "0";
-    document.getElementById("connectButton").innerText = "Connect MetaMask";
-    document.getElementById("checkinButton").disabled = true;
-    document.getElementById("disconnectButton").disabled = true;
-    document.getElementById("status").innerText = "Wallet disconnected.";
-}
-
-document.getElementById("connectButton").addEventListener("click", connectMetaMask);
-document.getElementById("checkinButton").addEventListener("click", checkIn);
-document.getElementById("disconnectButton").addEventListener("click", disconnectWallet);
-
-    </script>
 </body>
 </html>
