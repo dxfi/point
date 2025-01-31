@@ -190,15 +190,25 @@ button:disabled {
     </nav>
 
     <div class="container">
-        <h1>Check-in & Earn 100 Point Every Day - Doger Potrtal</h1>
-        <button id="connectButton">Connect Wallet</button>
-        <p>Wallet Address: <span id="walletAddress">-</span></p>
-        <p>ETH Balance: <span id="ethBalance">0</span></p>
-        <p>dPoint: <span id="cipBalance">0</span> Point</p>
-        <button id="checkinButton" disabled>Checkin</button>
-        <button id="disconnectButton" disabled>Disconnect Wallet</button>
-        <p id="status"></p>
-    </div>
+    <h1 class="orange-text">Doger Portal Airdrop Check-in</h1>
+
+    <button id="connectButton">
+        <i class="fas fa-link"></i> Connect Wallet
+    </button>
+    
+    <p id="walletInfo" class="hidden">Wallet Address: <span id="walletAddress">-</span></p>
+    <p id="ethBalanceInfo" class="hidden">ETH Balance: <span id="ethBalance">0</span> ETH</p>
+    <p id="dPointBalanceInfo" class="hidden">dPoint: <span id="cipBalance">0</span> Point</p>
+    
+    <button id="checkinButton" disabled>
+        <i class="fas fa-check"></i> Check-in
+    </button>
+    <button id="disconnectButton" disabled>
+        <i class="fas fa-power-off"></i> Disconnect Wallet
+    </button>   
+    <p id="status"></p>
+</div>
+
 
     <footer class="footer">
         <a href="https://x.com/dogerportal" target="_blank"><i class="fab fa-twitter"></i></a>
