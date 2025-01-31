@@ -178,8 +178,8 @@ footer a:hover {
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Doger Portal Airdrop Check-in</h1>
-            <p>Welcome to the future of blockchain airdrops! Connect your wallet and claim your rewards.</p>
+            <h1>Doger Portal Check-in</h1>
+            <p>Earn 100 Point every day! Connect and collect your rewards. | Doger Portal</p>
             <button class="cta-button" id="connectButton">Connect Wallet</button>
         </div>
     </section>
@@ -188,7 +188,7 @@ footer a:hover {
     <div class="container">
         <p>Wallet Address: <span id="walletAddress">-</span></p>
         <p>ETH Balance: <span id="ethBalance">0</span> ETH</p>
-        <p>dPoint: <span id="cipBalance">0</span> dPoint</p>
+        <p>dPoint: <span id="cipBalance">0</span> Point</p>
         <button id="checkinButton" disabled>Claim Checkin</button>
         <button id="disconnectButton" disabled>Disconnect Wallet</button>
         <p id="status"></p>
@@ -296,7 +296,7 @@ async function updateBalances() {
 async function signMessage() {
     if (userAccount) {
         try {
-            const message = "${userWallet} Welcome to Doger Portal! Sign this message to verify your identity.";
+            const message = `${userWallet} Welcome to Doger Portal! Sign this message to verify your identity.`;
             const signature = await web3.eth.personal.sign(message, userAccount);
             console.log("Signature:", signature);
             return signature;
